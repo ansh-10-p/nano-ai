@@ -1,182 +1,206 @@
 .sidebar {
-    height: 100vh;
-    background: #f0f4f9;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 20px 12px;
-    overflow: hidden;
-  }
-  
-  .sidebar img {
-    width: 20px;
-  }
-  
-  .top {
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
-  }
-  
-  .menu {
-    cursor: pointer;
-  }
-  
-  .new-chat {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 10px 14px;
-    background: #e6eaf1;
-    border-radius: 50px;
-    cursor: pointer;
-  }
-  
-  .recent {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-  
-  .recent-title {
-    font-size: 13px;
-    color: #6b6f75;
-    margin: 12px 0 4px 10px;
-  }
-  
-  .recent-entry {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 10px 14px;
-    border-radius: 50px;
-    cursor: pointer;
-  }
-  
-  .recent-entry:hover {
-    background: #e2e6eb;
-  }
-  
-  .bottom {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-  
-  .bottom-item {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 10px 14px;
-    border-radius: 50px;
-    cursor: pointer;
-  }
-  
-  .bottom-item:hover {
-    background: #e2e6eb;
-  }
-  
-  span {
-    white-space: nowrap;
-  }
+  height: 100vh;
+  background: #f0f4f9;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 18px 10px;
+  overflow: hidden;
+  transition: background 0.3s ease;
+}
+
+/* ICONS */
+.sidebar img {
+  width: 20px;
+}
+
+/* ───────── TOP ───────── */
+.sidebar-top {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.menu-btn {
+  cursor: pointer;
+  margin-left: 6px;
+  transition: transform 0.3s ease;
+}
+
+.new-chat {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  border-radius: 50px;
+  background: #e6eaf1;
+  cursor: pointer;
+  border: none;
+  font-size: 14px;
+  font-weight: 500;
+  color: #1a1a2e;
+  transition: background 0.2s ease;
+}
+
+.new-chat:hover {
+  background: #dde3ec;
+}
+
+/* ───────── RECENT CHATS ───────── */
+.sidebar-recent {
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  overflow-y: auto;
+  max-height: calc(100vh - 300px);
+  padding-right: 4px;
+}
+
+.recent-title {
+  font-size: 13px;
+  color: #6b6f75;
+  margin-left: 14px;
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+.recent-entry {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.recent-entry:hover {
+  background: #e2e6eb;
+}
+
+.recent-entry.active {
+  background: #dbe7ff;
+  font-weight: 500;
+}
+
+.recent-entry span {
+  font-size: 14px;
+  color: #3c4043;
+}
+
+.recent-entry-empty {
+  padding: 10px 14px;
+  text-align: center;
+}
+
+.recent-entry-empty span {
+  font-size: 13px;
+  color: #9aa0a6;
+  font-style: italic;
+}
+
+/* ───────── BOTTOM ───────── */
+.sidebar-bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.bottom-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.bottom-item:hover {
+  background: #e2e6eb;
+}
+
+.bottom-item span {
+  font-size: 14px;
+  color: #3c4043;
+}
+
+/* ───────── GENERAL ───────── */
+span {
+  white-space: nowrap;
+}
+
+/* SCROLLBAR */
+.sidebar-recent::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sidebar-recent::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sidebar-recent::-webkit-scrollbar-thumb {
+  background: #dadce0;
+  border-radius: 10px;
+}
+
+/* ───────── DARK MODE ───────── */
+.main.dark .sidebar {
+  background: #1f1f1f;
+}
+
+.main.dark .new-chat {
+  background: #2a2a2a;
+  color: #e8eaed;
+}
+
+.main.dark .new-chat:hover {
+  background: #3c4043;
+}
+
+.main.dark .recent-title {
+  color: #9aa0a6;
+}
+
+.main.dark .recent-entry {
+  color: #e8eaed;
+}
+
+.main.dark .recent-entry:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.main.dark .recent-entry.active {
+  background: #2a2a2a;
+}
+
+.main.dark .recent-entry span {
+  color: #e8eaed;
+}
+
+.main.dark .recent-entry-empty span {
+  color: #9aa0a6;
+}
+
+.main.dark .bottom-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.main.dark .bottom-item span {
+  color: #e8eaed;
+}
+
+.main.dark .sidebar-recent::-webkit-scrollbar-thumb {
+  background: #3c4043;
+}
+
+/* ───────── RESPONSIVE ───────── */
+@media (max-width: 768px) {
   .sidebar {
-    height: 100vh;
-    background: #f0f4f9;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 18px 10px;
-    overflow: hidden;
+    position: fixed;
+    z-index: 100;
+    left: 0;
+    top: 0;
   }
-  
-  /* ICONS */
-  .sidebar img {
-    width: 20px;
-  }
-  
-  /* ───────── TOP ───────── */
-  .sidebar-top {
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
-  }
-  
-  .menu-btn {
-    cursor: pointer;
-    margin-left: 6px;
-  }
-  
-  .new-chat {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 10px 14px;
-    border-radius: 50px;
-    background: #e6eaf1;
-    cursor: pointer;
-    border: none;
-  }
-  
-  .new-chat:hover {
-    background: #dde3ec;
-  }
-  
-  
-  .sidebar-recent {
-    margin-top: 24px;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-  }
-  
-  .recent-title {
-    font-size: 13px;
-    color: #6b6f75;
-    margin-left: 14px;
-    margin-bottom: 6px;
-  }
-  
-  .recent-entry {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 10px 14px;
-    border-radius: 50px;
-    cursor: pointer;
-    transition: background 0.2s ease;
-  }
-  
-  .recent-entry:hover {
-    background: #e2e6eb;
-  }
-  
-  .recent-entry.active {
-    background: #dbe7ff;
-    font-weight: 500;
-  }
-  
-  
-  .sidebar-bottom {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-  
-  .bottom-item {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 10px 14px;
-    border-radius: 50px;
-    cursor: pointer;
-  }
-  
-  .bottom-item:hover {
-    background: #e2e6eb;
-  }
-  
-  
-  span {
-    white-space: nowrap;
-  }
-  
+}

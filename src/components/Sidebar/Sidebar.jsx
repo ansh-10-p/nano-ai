@@ -1,17 +1,14 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import './Sidebar.css'
 import { assets } from '../../assets/assets'
 import { motion, AnimatePresence } from 'framer-motion'
-
-const recentChats = [
-  'What is React?',
-  'Explain useState',
-  'React vs Vue',
-]
+import { Context } from '../../context/Context'
 
 const Sidebar = () => {
   const [extended, setExtended] = useState(false)
-  const [active, setActive] = useState(0)
+  
+  // Get context values
+  const { chatHistory, newChat, loadChat, currentChatId } = useContext(Context)
 
   return (
     <motion.aside
@@ -32,6 +29,7 @@ const Sidebar = () => {
 
         <motion.button
           className="new-chat"
+          onClick={newChat}
           whileHover={{ scale: 1.04 }}
           whileTap={{ scale: 0.96 }}
         >
@@ -62,22 +60,34 @@ const Sidebar = () => {
           >
             <p className="recent-title">Recent</p>
 
-            {recentChats.map((chat, index) => (
-              <motion.div
-                key={index}
-                className={`recent-entry ${
-                  active === index ? 'active' : ''
-                }`}
-                onClick={() => setActive(index)}
-                initial={{ opacity: 0, x: -16 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: index * 0.05 }}
-                whileHover={{ x: 6 }}
+            {chatHistory.length === 0 ? (
+              <motion.div 
+                className="recent-entry-empty"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
               >
-                <img src={assets.message_icon} alt="" />
-                <span>{chat}</span>
+                <span>No chats yet</span>
               </motion.div>
-            ))}
+            ) : (
+              chatHistory.slice().reverse().map((chat, index) => (
+                <motion.div
+                  key={chat.id}
+                  className={`recent-entry ${currentChatId === chat.id ? 'active' : ''}`}
+                  onClick={() => loadChat(chat.id)}
+                  initial={{ opacity: 0, x: -16 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: index * 0.05 }}
+                  whileHover={{ x: 6 }}
+                >
+                  <img src={assets.message_icon} alt="" />
+                  <span>
+                    {chat.prompt.length > 18 
+                      ? chat.prompt.substring(0, 18) + '...' 
+                      : chat.prompt}
+                  </span>
+                </motion.div>
+              ))
+            )}
           </motion.div>
         )}
       </AnimatePresence>
