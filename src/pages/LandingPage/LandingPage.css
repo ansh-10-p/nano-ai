@@ -574,12 +574,22 @@ html[data-theme="dark"] .glow {
 
 .auth-modal {
     width: 100%;
-    max-width: 400px;
+    max-width: 420px;
     background: var(--bg-surface);
     border: 1px solid var(--border);
     border-radius: var(--radius-xl);
-    padding: 36px 32px;
+    padding: 0;
     box-shadow: var(--shadow-lg);
+    overflow: hidden;
+}
+
+.auth-modal-bar {
+    height: 4px;
+    background: var(--brand-gradient);
+}
+
+.auth-modal-inner {
+    padding: 32px 32px 28px;
 }
 
 .modal-header {
@@ -674,6 +684,7 @@ html[data-theme="dark"] .glow {
     position: relative;
     z-index: 1;
     padding: 0 10px;
+    background: var(--bg-surface);
 }
 
 .modal-form {
@@ -745,22 +756,20 @@ html[data-theme="dark"] .glow {
     width: 100%;
     padding: 13px;
     border-radius: var(--radius-pill);
-    background: var(--bg-muted);
-    border: 1.5px solid var(--border-strong);
-    color: var(--txt-primary);
+    background: var(--brand-gradient);
+    border: none;
+    color: white;
     font-size: 14px;
-    font-weight: 600;
+    font-weight: 700;
     cursor: pointer;
     font-family: var(--font);
     min-height: 48px;
+    box-shadow: 0 4px 16px rgba(108, 99, 255, .28);
     transition: var(--transition);
 }
 
 .submit-btn:hover {
-    background: var(--brand-1);
-    border-color: var(--brand-1);
-    color: white;
-    box-shadow: 0 4px 18px rgba(108, 99, 255, .3);
+    box-shadow: 0 6px 24px rgba(108, 99, 255, .45);
 }
 
 .submit-btn:disabled {
@@ -795,6 +804,7 @@ html[data-theme="dark"] .glow {
 .social-btn:hover {
     border-color: var(--border-strong);
     color: var(--txt-primary);
+    background: var(--bg-card);
 }
 
 .toggle-text {

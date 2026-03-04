@@ -49,58 +49,61 @@ const AuthModal = ({ onClose, onLogin }) => {
                 initial={{ opacity: 0, scale: 0.92, y: 24 }} animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.92, y: 24 }} transition={{ type: 'spring', stiffness: 300, damping: 28 }}>
 
-                <div className="modal-header">
-                    <div className="modal-brand"><RiSparklingFill /> nano<b>ai</b></div>
-                    <AnimatePresence mode="wait">
-                        <motion.div key={isLogin ? 'li' : 'su'} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }}>
-                            <h2>{isLogin ? 'Welcome back' : 'Create account'}</h2>
-                            <p>{isLogin ? 'Sign in to continue your journey' : 'Start for free, no credit card needed'}</p>
-                        </motion.div>
-                    </AnimatePresence>
-                </div>
+                <div className="auth-modal-bar" />
+                <div className="auth-modal-inner">
+                    <div className="modal-header">
+                        <div className="modal-brand"><RiSparklingFill /> nano<b>ai</b></div>
+                        <AnimatePresence mode="wait">
+                            <motion.div key={isLogin ? 'li' : 'su'} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }}>
+                                <h2>{isLogin ? 'Welcome back' : 'Create account'}</h2>
+                                <p>{isLogin ? 'Sign in to continue your journey' : 'Start free — no credit card needed'}</p>
+                            </motion.div>
+                        </AnimatePresence>
+                    </div>
 
-                <motion.button className="demo-btn" onClick={handleDemo} disabled={loading}
-                    whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.97 }}>
-                    {loading ? <><span className="spin" /> Opening...</> : <><RiThunderstormsLine /> Try Demo — No sign up needed</>}
-                </motion.button>
-
-                <div className="or-divider"><span>or with email</span></div>
-
-                <form onSubmit={handleSubmit} className="modal-form">
-                    <AnimatePresence>
-                        {!isLogin && (
-                            <motion.label className="field" initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }}>
-                                <RiUser3Line className="field-icon" />
-                                <input type="text" name="name" placeholder="Full name" value={form.name} onChange={handleChange} />
-                            </motion.label>
-                        )}
-                    </AnimatePresence>
-                    <label className="field">
-                        <RiMailLine className="field-icon" />
-                        <input type="email" name="email" placeholder="Email address" value={form.email} onChange={handleChange} required />
-                    </label>
-                    <label className="field">
-                        <RiLockLine className="field-icon" />
-                        <input type={showPw ? 'text' : 'password'} name="password" placeholder="Password" value={form.password} onChange={handleChange} required />
-                        <button type="button" className="eye-btn" onClick={() => setShowPw(p => !p)}>
-                            {showPw ? <RiEyeOffLine /> : <RiEyeLine />}
-                        </button>
-                    </label>
-                    <motion.button type="submit" className="submit-btn" disabled={loading}
+                    <motion.button className="demo-btn" onClick={handleDemo} disabled={loading}
                         whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.97 }}>
-                        {loading ? <><span className="spin" /> Working...</> : isLogin ? <><RiLoginBoxLine /> Sign in</> : <><RiUserAddLine /> Create account</>}
+                        {loading ? <><span className="spin" /> Opening...</> : <><RiThunderstormsLine /> ⚡ Try Demo — No sign up needed</>}
                     </motion.button>
-                </form>
 
-                <div className="social-row">
-                    <button className="social-btn"><SiGoogle size={15} /> Google</button>
-                    <button className="social-btn"><SiGithub size={15} /> GitHub</button>
+                    <div className="or-divider"><span>or continue with email</span></div>
+
+                    <form onSubmit={handleSubmit} className="modal-form">
+                        <AnimatePresence>
+                            {!isLogin && (
+                                <motion.label className="field" initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }}>
+                                    <RiUser3Line className="field-icon" />
+                                    <input type="text" name="name" placeholder="Full name" value={form.name} onChange={handleChange} />
+                                </motion.label>
+                            )}
+                        </AnimatePresence>
+                        <label className="field">
+                            <RiMailLine className="field-icon" />
+                            <input type="email" name="email" placeholder="Email address" value={form.email} onChange={handleChange} required />
+                        </label>
+                        <label className="field">
+                            <RiLockLine className="field-icon" />
+                            <input type={showPw ? 'text' : 'password'} name="password" placeholder="Password" value={form.password} onChange={handleChange} required />
+                            <button type="button" className="eye-btn" onClick={() => setShowPw(p => !p)}>
+                                {showPw ? <RiEyeOffLine /> : <RiEyeLine />}
+                            </button>
+                        </label>
+                        <motion.button type="submit" className="submit-btn" disabled={loading}
+                            whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.97 }}>
+                            {loading ? <><span className="spin" /> Working...</> : isLogin ? <><RiLoginBoxLine /> Sign in</> : <><RiUserAddLine /> Create account</>}
+                        </motion.button>
+                    </form>
+
+                    <div className="social-row">
+                        <button className="social-btn"><SiGoogle size={15} /> Google</button>
+                        <button className="social-btn"><SiGithub size={15} /> GitHub</button>
+                    </div>
+
+                    <p className="toggle-text">
+                        {isLogin ? "Don't have an account?" : 'Already have an account?'}
+                        <button type="button" onClick={() => setIsLogin(p => !p)}>{isLogin ? ' Sign up' : ' Sign in'}</button>
+                    </p>
                 </div>
-
-                <p className="toggle-text">
-                    {isLogin ? "Don't have an account?" : 'Already have an account?'}
-                    <button type="button" onClick={() => setIsLogin(p => !p)}>{isLogin ? ' Sign up' : ' Sign in'}</button>
-                </p>
             </motion.div>
         </motion.div>
     )

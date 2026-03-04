@@ -1,16 +1,106 @@
-# React + Vite
+# ✨ nano-ai
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A sleek, modern AI chat application powered by **Google Gemini**, built with React + Vite.
 
-Currently, two official plugins are available:
+LINK
+https://nano-ai-chi.vercel.app
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## React Compiler
+- 🤖 **AI Chat** — Real-time conversations powered by `gemini-2.5-flash`
+- 🖼️ **Image Attachments** — Attach and send images alongside your messages
+- 🎤 **Voice Input** — Speak your message using the Web Speech API (Chrome/Edge)
+- 🌗 **Light / Dark Mode** — Persisted theme preference via `localStorage`
+- ✍️ **Typewriter Effect** — Smooth animated rendering of AI responses
+- 📋 **Copy Responses** — One-click copy button on every AI message
+- 👍 **Message Reactions** — Thumbs up / thumbs down on AI replies
+- ⚙️ **Settings Panel** — Font size, language, theme, and privacy controls
+- 🔐 **Auth Flow** — Login / signup modal with instant Demo mode (no account needed)
+- 📱 **Responsive Design** — Sidebar, topbar, and chat area adapt to any screen
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Tech Stack
 
-## Expanding the ESLint configuration
+| Layer | Technology |
+|---|---|
+| Framework | React 19 + Vite (rolldown) |
+| Routing | React Router DOM v7 |
+| Animations | Framer Motion |
+| Icons | React Icons (Remix Icon) |
+| AI Model | Google Gemini (`@google/generative-ai`) |
+| Styling | Vanilla CSS with CSS custom properties |
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Getting Started
+
+### Prerequisites
+
+- Node.js ≥ 18
+- A [Google AI Studio](https://aistudio.google.com/) API key
+
+### Installation
+
+```bash
+git clone https://github.com/your-username/nano-ai.git
+cd nano-ai
+npm install
+```
+
+### Configuration
+
+Create a `.env` file in the project root:
+
+```env
+VITE_GEMINI_API_KEY=your_api_key_here
+```
+
+### Run Locally
+
+```bash
+npm run dev
+```
+
+Open [http://localhost:5173](http://localhost:5173) in your browser.
+
+### Build for Production
+
+```bash
+npm run build
+npm run preview
+```
+
+## Project Structure
+
+```
+nano-ai/
+├── src/
+│   ├── pages/
+│   │   ├── LandingPage/   # Hero + auth modal
+│   │   ├── ChatPage/      # Main chat interface
+│   │   └── auth/          # Login & signup forms
+│   ├── components/
+│   │   └── Sidebar/       # Conversation sidebar
+│   ├── context/
+│   │   └── Context.jsx    # Global state (messages, AI calls)
+│   ├── config/            # Gemini API setup
+│   ├── App.jsx            # Root router & auth state
+│   └── index.css          # Global design tokens & styles
+├── public/
+├── .env                   # API keys (not committed)
+└── vite.config.js
+```
+
+## Available Scripts
+
+| Command | Description |
+|---|---|
+| `npm run dev` | Start the dev server with HMR |
+| `npm run build` | Build for production |
+| `npm run preview` | Preview the production build |
+| `npm run lint` | Run ESLint |
+
+## Privacy
+
+Chat history is stored **locally in your browser only** and is never sent to any server other than the Google Gemini API.
+
+## License
+
+MIT
