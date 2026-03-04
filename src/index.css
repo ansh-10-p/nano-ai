@@ -1,11 +1,141 @@
-@import url('https://fonts.googleapias.com/css2?family=Outfit:wght@100..900&display=swap');
-*{
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
+/* ─────────────────────────────────────────
+   CSS CUSTOM PROPERTIES — THEME SYSTEM
+───────────────────────────────────────── */
+:root {
+  /* Brand */
+  --brand-1: #6c63ff;
+  --brand-2: #ff6bcb;
+  --brand-3: #4dd9ff;
+  --brand-gradient: linear-gradient(135deg, #6c63ff 0%, #ff6bcb 50%, #4dd9ff 100%);
+  --brand-gradient-text: linear-gradient(135deg, #6c63ff, #ff6bcb);
+
+  /* Light mode surfaces */
+  --bg-primary: #f6f8ff;
+  --bg-secondary: #ffffff;
+  --bg-tertiary: #eef1f9;
+  --bg-card: #ffffff;
+  --bg-input: #ffffff;
+  --bg-overlay: rgba(255, 255, 255, 0.6);
+
+  /* Light mode text */
+  --text-primary: #0f0f1a;
+  --text-secondary: #4a4a6a;
+  --text-muted: #8888aa;
+  --text-placeholder: #aaaacc;
+
+  /* Light mode borders */
+  --border-light: rgba(108, 99, 255, 0.12);
+  --border-medium: rgba(108, 99, 255, 0.22);
+
+  /* Shadows */
+  --shadow-sm: 0 2px 8px rgba(108, 99, 255, 0.08);
+  --shadow-md: 0 8px 32px rgba(108, 99, 255, 0.12);
+  --shadow-lg: 0 20px 60px rgba(108, 99, 255, 0.18);
+  --shadow-glow: 0 0 24px rgba(108, 99, 255, 0.25);
+
+  /* Sidebar */
+  --sidebar-bg: #f0f0ff;
+  --sidebar-item-hover: rgba(108, 99, 255, 0.1);
+  --sidebar-item-active: rgba(108, 99, 255, 0.18);
+
+  /* Misc */
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+  --radius-pill: 100px;
+
+  --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  --font-main: 'Inter', 'Plus Jakarta Sans', sans-serif;
+}
+
+/* ── DARK MODE ── */
+[data-theme="dark"] {
+  --bg-primary: #0d0d1a;
+  --bg-secondary: #12121f;
+  --bg-tertiary: #1a1a2e;
+  --bg-card: #16162a;
+  --bg-input: #1a1a2e;
+  --bg-overlay: rgba(13, 13, 26, 0.75);
+
+  --text-primary: #e8e8ff;
+  --text-secondary: #a0a0cc;
+  --text-muted: #6060aa;
+  --text-placeholder: #4a4a88;
+
+  --border-light: rgba(108, 99, 255, 0.15);
+  --border-medium: rgba(108, 99, 255, 0.3);
+
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 8px 32px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.5);
+  --shadow-glow: 0 0 32px rgba(108, 99, 255, 0.35);
+
+  --sidebar-bg: #0f0f1e;
+  --sidebar-item-hover: rgba(108, 99, 255, 0.12);
+  --sidebar-item-active: rgba(108, 99, 255, 0.22);
+}
+
+/* ─────────────────────────────────────────
+   GLOBAL RESET
+───────────────────────────────────────── */
+*, *::before, *::after {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  font-family: Outfit;
 }
-#root{
-  min-height: 100vh ;
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-main);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background 0.3s ease, color 0.3s ease;
+  line-height: 1.6;
+}
+
+#root {
+  min-height: 100vh;
   display: flex;
+}
+
+/* ─────────────────────────────────────────
+   GLOBAL SCROLLBAR
+───────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-medium);
+  border-radius: var(--radius-pill);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--brand-1);
+}
+
+/* ─────────────────────────────────────────
+   UTILITIES
+───────────────────────────────────────── */
+.gradient-text {
+  background: var(--brand-gradient-text);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.glass {
+  background: var(--bg-overlay);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border-light);
 }
