@@ -1,54 +1,43 @@
 import React, { useState, useContext } from 'react'
-import './Sidebar.css'
-import { assets } from '../../assets/assets'
 import { motion, AnimatePresence } from 'framer-motion'
+import {
+  RiSparklingFill, RiMenuLine, RiAddLine,
+  RiHistoryLine, RiQuestionLine, RiSettings4Line,
+  RiSunLine, RiMoonLine, RiLogoutBoxLine,
+  RiChatSmile3Line
+} from 'react-icons/ri'
+import './Sidebar.css'
 import { Context } from '../../context/Context'
 
 const Sidebar = ({ user, theme, toggleTheme, onLogout }) => {
-  const [extended, setExtended] = useState(false)
+  const [expanded, setExpanded] = useState(false)
   const { chatHistory, newChat, loadChat, currentChatId } = useContext(Context)
 
-  const navItems = [
-    { icon: assets.question_icon, label: 'Help', emoji: '❓' },
-    { icon: assets.history_icon, label: 'Activity', emoji: '🕒' },
-    { icon: assets.setting_icon, label: 'Settings', emoji: '⚙️' },
+  const bottomItems = [
+    { icon: <RiQuestionLine size={19} />, label: 'Help' },
+    { icon: <RiHistoryLine size={19} />, label: 'Activity' },
+    { icon: <RiSettings4Line size={19} />, label: 'Settings' },
   ]
 
   return (
     <motion.aside
       className="sidebar"
-      animate={{ width: extended ? 260 : 72 }}
-      transition={{ type: 'spring', stiffness: 280, damping: 30 }}
+      animate={{ width: expanded ? 252 : 64 }}
+      transition={{ type: 'spring', stiffness: 300, damping: 30 }}
     >
       {/* TOP */}
-      <div className="sidebar-top">
-        <motion.button
-          className="menu-btn"
-          onClick={() => setExtended(p => !p)}
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
-          aria-label="Toggle sidebar"
-        >
-          <span className="menu-icon">☰</span>
+      <div className="sb-top">
+        <motion.button className="sb-icon-btn" onClick={() => setExpanded(p => !p)}
+          whileHover={{ scale: 1.08 }} whileTap={{ scale: 0.92 }} title="Toggle sidebar">
+          <RiMenuLine size={20} />
         </motion.button>
 
-        <motion.button
-          className="new-chat"
-          onClick={newChat}
-          whileHover={{ scale: 1.03 }}
-          whileTap={{ scale: 0.97 }}
-          title="New Chat"
-        >
-          <span className="new-chat-icon">✦</span>
+        <motion.button className="sb-new-chat" onClick={newChat}
+          whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }} title="New chat">
+          <RiAddLine size={18} className="sb-nc-icon" />
           <AnimatePresence>
-            {extended && (
-              <motion.span
-                className="new-chat-label"
-                initial={{ opacity: 0, x: -10 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -10 }}
-                transition={{ duration: 0.2 }}
-              >
+            {expanded && (
+              <motion.span initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -8 }} transition={{ duration: 0.18 }}>
                 New Chat
               </motion.span>
             )}
@@ -56,37 +45,27 @@ const Sidebar = ({ user, theme, toggleTheme, onLogout }) => {
         </motion.button>
       </div>
 
-      {/* RECENT CHATS */}
-      <div className="sidebar-middle">
+      {/* RECENT */}
+      <div className="sb-middle">
         <AnimatePresence>
-          {extended && (
-            <motion.div
-              className="sidebar-recent"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
-            >
-              <p className="recent-title">Recent</p>
+          {expanded && (
+            <motion.div className="sb-recent" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+              <p className="sb-section-label">Recent</p>
               {chatHistory.length === 0 ? (
-                <div className="recent-empty">
-                  <span>💬</span>
-                  <p>No chats yet</p>
+                <div className="sb-empty">
+                  <RiChatSmile3Line size={24} />
+                  <span>No chats yet</span>
                 </div>
               ) : (
-                chatHistory.slice().reverse().map((chat, index) => (
-                  <motion.button
-                    key={chat.id}
-                    className={`recent-entry ${currentChatId === chat.id ? 'active' : ''}`}
+                chatHistory.slice().reverse().map((chat, i) => (
+                  <motion.button key={chat.id}
+                    className={`sb-chat-item ${currentChatId === chat.id ? 'active' : ''}`}
                     onClick={() => loadChat(chat.id)}
-                    initial={{ opacity: 0, x: -16 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.04 }}
-                    whileHover={{ x: 4 }}
-                  >
-                    <span className="recent-dot" />
-                    <span className="recent-text">
-                      {chat.prompt.length > 22 ? chat.prompt.substring(0, 22) + '…' : chat.prompt}
+                    initial={{ opacity: 0, x: -12 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.04 }}
+                    whileHover={{ x: 3 }}>
+                    <span className="sb-chat-dot" />
+                    <span className="sb-chat-label">
+                      {chat.prompt.length > 24 ? chat.prompt.slice(0, 24) + '…' : chat.prompt}
                     </span>
                   </motion.button>
                 ))
@@ -97,49 +76,29 @@ const Sidebar = ({ user, theme, toggleTheme, onLogout }) => {
       </div>
 
       {/* BOTTOM */}
-      <div className="sidebar-bottom">
+      <div className="sb-bottom">
         {/* Theme toggle */}
-        <motion.button
-          className="bottom-item theme-item"
-          onClick={toggleTheme}
-          whileHover={{ x: extended ? 4 : 0, scale: extended ? 1 : 1.1 }}
-          whileTap={{ scale: 0.95 }}
-          title={theme === 'dark' ? 'Light mode' : 'Dark mode'}
-        >
-          <span className="bottom-icon">{theme === 'dark' ? '☀️' : '🌙'}</span>
+        <motion.button className="sb-icon-btn" onClick={toggleTheme}
+          whileHover={{ scale: expanded ? 1 : 1.08, x: expanded ? 3 : 0 }}
+          whileTap={{ scale: 0.92 }} title={theme === 'dark' ? 'Light mode' : 'Dark mode'}>
+          {theme === 'dark' ? <RiSunLine size={19} /> : <RiMoonLine size={19} />}
           <AnimatePresence>
-            {extended && (
-              <motion.span
-                className="bottom-label"
-                initial={{ opacity: 0, x: -10 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -10 }}
-                transition={{ duration: 0.2 }}
-              >
+            {expanded && (
+              <motion.span initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -8 }} transition={{ duration: 0.18 }}>
                 {theme === 'dark' ? 'Light Mode' : 'Dark Mode'}
               </motion.span>
             )}
           </AnimatePresence>
         </motion.button>
 
-        {navItems.map((item, index) => (
-          <motion.button
-            key={index}
-            className="bottom-item"
-            whileHover={{ x: extended ? 4 : 0, scale: extended ? 1 : 1.1 }}
-            whileTap={{ scale: 0.95 }}
-            title={item.label}
-          >
-            <span className="bottom-icon">{item.emoji}</span>
+        {bottomItems.map((item, i) => (
+          <motion.button key={i} className="sb-icon-btn"
+            whileHover={{ scale: expanded ? 1 : 1.08, x: expanded ? 3 : 0 }}
+            whileTap={{ scale: 0.92 }} title={item.label}>
+            {item.icon}
             <AnimatePresence>
-              {extended && (
-                <motion.span
-                  className="bottom-label"
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -10 }}
-                  transition={{ duration: 0.2 }}
-                >
+              {expanded && (
+                <motion.span initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -8 }} transition={{ duration: 0.18 }}>
                   {item.label}
                 </motion.span>
               )}
@@ -147,26 +106,16 @@ const Sidebar = ({ user, theme, toggleTheme, onLogout }) => {
           </motion.button>
         ))}
 
-        {/* User Avatar */}
-        <div className="sidebar-user">
-          <motion.div
-            className="user-avatar"
-            whileHover={{ scale: 1.08 }}
-            title={user?.name || 'User'}
-          >
-            {user?.avatar || 'U'}
+        {/* User & Logout */}
+        <div className="sb-user-row">
+          <motion.div className="sb-avatar" whileHover={{ scale: 1.08 }} title={user?.name}>
+            {user?.avatar || <RiSparklingFill size={14} />}
           </motion.div>
           <AnimatePresence>
-            {extended && (
-              <motion.div
-                className="user-info"
-                initial={{ opacity: 0, x: -10 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -10 }}
-                transition={{ duration: 0.2 }}
-              >
-                <span className="user-name">{user?.name || 'User'}</span>
-                <button className="logout-btn" onClick={onLogout}>Sign out</button>
+            {expanded && (
+              <motion.div className="sb-user-info" initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -8 }}>
+                <span className="sb-user-name">{user?.name || 'User'}</span>
+                <button className="sb-logout" onClick={onLogout}><RiLogoutBoxLine size={13} /> Sign out</button>
               </motion.div>
             )}
           </AnimatePresence>
